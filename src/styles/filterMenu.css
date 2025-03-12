@@ -1,0 +1,117 @@
+.filter-menu {
+  max-width: 400px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  height: 530px;
+}
+
+.table-wrapper-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  align-items: center;
+}
+.filter-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.filter-section {
+  margin-bottom: 15px;
+}
+
+.filter-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #444;
+}
+
+.checkbox-input {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* Accordion Button */
+.accordion-btn {
+  width: 100%;
+  background: #f7f7f7;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.accordion-btn:hover {
+  background: #e0e0e0;
+}
+
+/* Accordion Content */
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  opacity: 0;
+}
+
+.accordion-content.show {
+  max-height: 200px;
+  opacity: 1;
+  margin-top: 5px;
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.input-box {
+  flex: 1;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.input-box:focus {
+  border-color: #007bff;
+  box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Currency Dropdown */
+.currency-select {
+  width: 100%;
+  margin-top: 8px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+  transition: 0.3s;
+  background: white;
+}
+
+.currency-select:focus {
+  border-color: #007bff;
+  box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.3);
+}

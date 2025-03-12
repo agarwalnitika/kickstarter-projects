@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
+import "../styles/filterMenu.css";
 
 const FilterMenu = ({
-  selectedCurrencies,
-  setSelectedCurrencies,
   selectedCountries,
   setSelectedCountries,
+  selectedCurrencies,
+  setSelectedCurrencies,
   minPledged,
   setMinPledged,
   maxPledged,
@@ -14,54 +15,12 @@ const FilterMenu = ({
   maxFunded,
   setMaxFunded,
   projects,
-  exchangeRates,
 }) => {
-  // Available filtering options
-  const availableCurrencies = ["USD", "CAD", "EUR", "GBP", "AUD", "CHF", "DKK"];
   const availableCountries = [...new Set(projects.map((p) => p.country))];
+  const availableCurrencies = [...new Set(projects.map((p) => p.currency))];
 
-  // User-selected currency for conversion
-  const [selectedConversionCurrency, setSelectedConversionCurrency] =
-    useState("USD");
-  const [minPledgedPlaceholder, setMinPledgedPlaceholder] = useState("0.00");
-  const [maxPledgedPlaceholder, setMaxPledgedPlaceholder] = useState("0.00");
-  const [minFundedPlaceholder, setMinFundedPlaceholder] = useState("0");
-  const [maxFundedPlaceholder, setMaxFundedPlaceholder] = useState("0");
+  const [showCountries, setShowCountries] = useState(false);
 
-  // Convert amounts based on selected currency
-  const convertAmount = (amount, fromCurrency) => {
-    if (!amount || !fromCurrency || !exchangeRates[fromCurrency]) return amount;
-    if (fromCurrency === selectedConversionCurrency) return amount;
-
-    return (
-      (amount / exchangeRates[fromCurrency]) *
-      exchangeRates[selectedConversionCurrency]
-    );
-  };
-
-  // Update placeholders whenever currency selection changes
-  useEffect(() => {
-    const pledgedValues = projects.map((p) =>
-      convertAmount(p["amt.pledged"], p.currency)
-    );
-    const fundedValues = projects.map((p) => p["percentage.funded"]);
-
-    setMinPledgedPlaceholder(
-      pledgedValues.length ? Math.min(...pledgedValues).toFixed(2) : "0.00"
-    );
-    setMaxPledgedPlaceholder(
-      pledgedValues.length ? Math.max(...pledgedValues).toFixed(2) : "0.00"
-    );
-
-    setMinFundedPlaceholder(
-      fundedValues.length ? Math.min(...fundedValues) : "0"
-    );
-    setMaxFundedPlaceholder(
-      fundedValues.length ? Math.max(...fundedValues) : "0"
-    );
-  }, [selectedConversionCurrency, projects, exchangeRates]);
-
-  // Toggle selected checkboxes
   const toggleSelected = (list, setList, value) => {
     setList(
       list.includes(value)
@@ -72,34 +31,46 @@ const FilterMenu = ({
 
   return (
     <div className="filter-menu">
-      <h3>Filters</h3>
+      <h3 className="filter-title">Filters</h3>
 
-      {/* Country Filter (Checkboxes) */}
-      <div className="filter-group">
-        <h4>Country</h4>
-        {availableCountries.map((country) => (
-          <label key={country}>
-            <input
-              type="checkbox"
-              checked={selectedCountries.includes(country)}
-              onChange={() =>
-                toggleSelected(selectedCountries, setSelectedCountries, country)
-              }
-            />
-            {country}
-          </label>
-        ))}
+      {/* Country Filter - Accordion */}
+      <div className="filter-section">
+        <button
+          className="accordion-btn"
+          onClick={() => setShowCountries(!showCountries)}
+        >
+          Country {showCountries ? "▲" : "▼"}
+        </button>
+        <div className={`accordion-content ${showCountries ? "show" : ""}`}>
+          {availableCountries.map((country) => (
+            <label key={country} className="checkbox-label">
+              <input
+                type="checkbox"
+                checked={selectedCountries.includes(country)}
+                onChange={() =>
+                  toggleSelected(
+                    selectedCountries,
+                    setSelectedCountries,
+                    country
+                  )
+                }
+                className="checkbox-input"
+              />
+              {country}
+            </label>
+          ))}
+        </div>
       </div>
 
       {/* Amount Pledged Filter */}
-      <div className="filter-group">
-        <h4>Amount Pledged</h4>
-
-        {/* Currency selection for conversion */}
+      <div className="filter-section">
+        <h4 className="filter-label">Amount Pledged</h4>
         <select
-          value={selectedConversionCurrency}
-          onChange={(e) => setSelectedConversionCurrency(e.target.value)}
+          value={selectedCurrencies}
+          onChange={(e) => setSelectedCurrencies(e.target.value)}
+          className="currency-select"
         >
+          <option value="">All Currencies</option>
           {availableCurrencies.map((currency) => (
             <option key={currency} value={currency}>
               {currency}
@@ -107,36 +78,43 @@ const FilterMenu = ({
           ))}
         </select>
 
-        {/* Min & Max Input Fields */}
-        <input
-          type="number"
-          placeholder={`Min`}
-          value={minPledged}
-          onChange={(e) => setMinPledged(e.target.value)}
-        />
-        <input
-          type="number"
-          placeholder={`Max`}
-          value={maxPledged}
-          onChange={(e) => setMaxPledged(e.target.value)}
-        />
+        <div className="input-group">
+          <input
+            type="number"
+            placeholder="Min Amount"
+            value={minPledged}
+            onChange={(e) => setMinPledged(e.target.value)}
+            className="input-box"
+          />
+          <input
+            type="number"
+            placeholder="Max Amount"
+            value={maxPledged}
+            onChange={(e) => setMaxPledged(e.target.value)}
+            className="input-box"
+          />
+        </div>
       </div>
 
       {/* Percentage Funded Filter */}
-      <div className="filter-group">
-        <h4>Percentage Funded</h4>
-        <input
-          type="number"
-          placeholder={`Min: ${minFundedPlaceholder}%`}
-          value={minFunded}
-          onChange={(e) => setMinFunded(e.target.value)}
-        />
-        <input
-          type="number"
-          placeholder={`Max: ${maxFundedPlaceholder}%`}
-          value={maxFunded}
-          onChange={(e) => setMaxFunded(e.target.value)}
-        />
+      <div className="filter-section">
+        <h4 className="filter-label">Percentage Funded</h4>
+        <div className="input-group">
+          <input
+            type="number"
+            placeholder="Min %"
+            value={minFunded}
+            onChange={(e) => setMinFunded(e.target.value)}
+            className="input-box"
+          />
+          <input
+            type="number"
+            placeholder="Max %"
+            value={maxFunded}
+            onChange={(e) => setMaxFunded(e.target.value)}
+            className="input-box"
+          />
+        </div>
       </div>
     </div>
   );

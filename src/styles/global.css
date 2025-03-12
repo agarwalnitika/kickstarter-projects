@@ -3,11 +3,20 @@
 
 body {
   font-family: var(--font-family);
-  background-color: var(--background);
+  background-color: white;
   color: var(--text);
   font-size: var(--font-size);
   margin: 0;
   padding: 0;
+}
+
+#root {
+  width: 100%;
+}
+
+h1 {
+  text-align: center;
+  margin: 40px 0px;
 }
 
 /* Table */
@@ -20,11 +29,27 @@ table {
   /* min-width: 100%; */
 }
 
+th button {
+  margin-left: 8px; /* Add spacing between text and sort button */
+}
+
 th {
   background: var(--table-header);
   color: white;
   padding: var(--spacing-medium);
   text-align: left;
+  /* display: flex; */
+  justify-content: space-between;
+  align-items: center;
+  white-space: nowrap; /* Prevent text from wrapping */
+  min-width: 150px; /* Adjust based on your needs */
+}
+
+.th-content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 tr:nth-child(even) {

@@ -24,9 +24,10 @@ function App() {
   if (error) return <h2>Error: {error}</h2>;
 
   return (
-    <div>
+    <div className="">
       <h1>Kickstarter Projects</h1>
       <Table projects={projects} />
+      <div style={{ marginBottom: "60px" }}></div>
     </div>
   );
 }

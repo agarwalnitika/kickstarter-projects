@@ -10,9 +10,15 @@ body {
   flex-direction: column;
 }
 
+.wrapper {
+  margin: 40px;
+  padding: 20px;
+  background-color: var(--background);
+}
+
 /* Table Container */
 .table-container {
-  width: 500px;
+  width: 600px;
   height: 320px;
   border: 1px solid #ddd;
   background: white;
@@ -22,6 +28,10 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between; /* Ensures pagination stays at the bottom */
+}
+
+.table-wrapper {
+  display: flex;
 }
 
 /* Table Styling */
@@ -66,6 +76,7 @@ tr {
   align-items: center;
   gap: 10px;
   min-height: 50px;
+  width: 400px;
 }
 
 /* Pagination Buttons */

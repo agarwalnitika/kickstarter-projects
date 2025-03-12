@@ -18,9 +18,6 @@ const Table = ({ projects }) => {
 
   // Filtering Logic
   let filteredData = projects.filter((project) => {
-    const matchesCurrency =
-      selectedCurrencies.length === 0 ||
-      selectedCurrencies.includes(project.currency);
     const matchesCountry =
       selectedCountries.length === 0 ||
       selectedCountries.includes(project.country);
@@ -31,7 +28,7 @@ const Table = ({ projects }) => {
       (!minFunded || project["percentage.funded"] >= minFunded) &&
       (!maxFunded || project["percentage.funded"] <= maxFunded);
 
-    return matchesCurrency && matchesCountry && matchesPledged && matchesFunded;
+    return matchesCountry && matchesPledged && matchesFunded;
   });
 
   // Sorting Logic
@@ -85,90 +82,103 @@ const Table = ({ projects }) => {
   };
 
   return (
-    <div className="table-wrapper">
-      {/* Sidebar Filters */}
-      <FilterMenu
-        selectedCurrencies={selectedCurrencies}
-        setSelectedCurrencies={setSelectedCurrencies}
-        selectedCountries={selectedCountries}
-        setSelectedCountries={setSelectedCountries}
-        minPledged={minPledged}
-        setMinPledged={setMinPledged}
-        maxPledged={maxPledged}
-        setMaxPledged={setMaxPledged}
-        minFunded={minFunded}
-        setMinFunded={setMinFunded}
-        maxFunded={maxFunded}
-        setMaxFunded={setMaxFunded}
-        projects={projects}
-        exchangeRates={exchangeRates}
-      />
+    <div className="wrapper">
+      <div className="table-wrapper">
+        {/* Sidebar Filters */}
+        <FilterMenu
+          selectedCurrencies={selectedCurrencies}
+          setSelectedCurrencies={setSelectedCurrencies}
+          selectedCountries={selectedCountries}
+          setSelectedCountries={setSelectedCountries}
+          minPledged={minPledged}
+          setMinPledged={setMinPledged}
+          maxPledged={maxPledged}
+          setMaxPledged={setMaxPledged}
+          minFunded={minFunded}
+          setMinFunded={setMinFunded}
+          maxFunded={maxFunded}
+          setMaxFunded={setMaxFunded}
+          projects={projects}
+          exchangeRates={exchangeRates}
+        />
+        <div className="table-wrapper-card">
+          <div className="table-container">
+            <table border={1} style={{ border: "1px solid #ddd" }}>
+              <thead>
+                <tr>
+                  <th>
+                    <div className="th-content">
+                      <Tooltip text="Serial Number">S.No</Tooltip>
+                      <button
+                        onClick={() => handleSort("s.no")}
+                        className="sort-btn"
+                      >
+                        {renderSortIndicator("s.no")}
+                      </button>
+                    </div>
+                  </th>
+                  <th>
+                    <div className="th-content">
+                      <Tooltip text="Percentage of funding received">
+                        Percentage Funded
+                      </Tooltip>
+                      <button
+                        onClick={() => handleSort("percentage.funded")}
+                        className="sort-btn"
+                      >
+                        {renderSortIndicator("percentage.funded")}
+                      </button>
+                    </div>
+                  </th>
+                  <th>
+                    <div className="th-content">
+                      <Tooltip text="Total amount pledged">
+                        Amount Pledged
+                      </Tooltip>
+                      <button
+                        onClick={() => handleSort("amt.pledged")}
+                        className="sort-btn"
+                      >
+                        {renderSortIndicator("amt.pledged")}
+                      </button>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {currentRecords.map((project, index) => (
+                  <tr key={index}>
+                    <td>{project["s.no"]}</td>
+                    <td>{project["percentage.funded"]}%</td>
+                    <td>
+                      {formatCurrency(project["amt.pledged"], project.currency)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {/* Pagination stays fixed */}
+          <div className="pagination">
+            <PaginationButton
+              onClick={() => setCurrentPage(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </PaginationButton>
 
-      <div className="table-container">
-        <table border={1}>
-          <thead>
-            <tr>
-              <th>
-                <Tooltip text="Serial Number">S.No</Tooltip>
-                <button onClick={() => handleSort("s.no")} className="sort-btn">
-                  {renderSortIndicator("s.no")}
-                </button>
-              </th>
-              <th>
-                <Tooltip text="Percentage of funding received">
-                  Percentage Funded
-                </Tooltip>
-                <button
-                  onClick={() => handleSort("percentage.funded")}
-                  className="sort-btn"
-                >
-                  {renderSortIndicator("percentage.funded")}
-                </button>
-              </th>
-              <th>
-                <Tooltip text="Total amount pledged">Amount Pledged</Tooltip>
-                <button
-                  onClick={() => handleSort("amt.pledged")}
-                  className="sort-btn"
-                >
-                  {renderSortIndicator("amt.pledged")}
-                </button>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentRecords.map((project, index) => (
-              <tr key={index}>
-                <td>{project["s.no"]}</td>
-                <td>{project["percentage.funded"]}%</td>
-                <td>
-                  {formatCurrency(project["amt.pledged"], project.currency)}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            <span>
+              Page {currentPage} of {totalPages}
+            </span>
 
-      {/* Pagination stays fixed */}
-      <div className="pagination">
-        <PaginationButton
-          onClick={() => setCurrentPage(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </PaginationButton>
-
-        <span>
-          Page {currentPage} of {totalPages}
-        </span>
-
-        <PaginationButton
-          onClick={() => setCurrentPage(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </PaginationButton>
+            <PaginationButton
+              onClick={() => setCurrentPage(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </PaginationButton>
+          </div>
+        </div>
       </div>
     </div>
   );

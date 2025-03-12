@@ -1,12 +1,13 @@
 :root {
   /* Colors */
-  --primary: #6a5acd;
-  --primary-hover: #5848c2;
-  --background: #f8f9fa;
-  --text: #333;
-  --table-header: #4b3d91;
-  --table-row-even: #f2f2f2;
-  --button-disabled: #ccc;
+
+  --primary: #6a5acd; /* Soft Lavender */
+  --primary-hover: #5848c2; /* Darker Lavender */
+  --background: #f8f9fa; /* Light Background */
+  --text: #333; /* Dark Gray Text */
+  --table-header: #7e5cad; /* Muted Purple */
+  --table-row-even: #f2f2f2; /* Light Gray Rows */
+  --button-disabled: #ccc; /* Disabled Button */
 
   /* Typography */
   --font-family: "Open Sans", sans-serif;
