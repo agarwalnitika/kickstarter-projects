@@ -1,0 +1,19 @@
+:root {
+  /* Colors */
+  --primary: #6a5acd;
+  --primary-hover: #5848c2;
+  --background: #f8f9fa;
+  --text: #333;
+  --table-header: #4b3d91;
+  --table-row-even: #f2f2f2;
+  --button-disabled: #ccc;
+
+  /* Typography */
+  --font-family: "Open Sans", sans-serif;
+  --font-size: 16px;
+
+  /* Spacing */
+  --spacing-small: 8px;
+  --spacing-medium: 16px;
+  --spacing-large: 24px;
+}
