@@ -12,7 +12,7 @@ body {
 
 /* Table Container */
 .table-container {
-  width: 400px;
+  width: 500px;
   height: 320px;
   border: 1px solid #ddd;
   background: white;
@@ -32,11 +32,10 @@ table {
 }
 
 th {
-  background: #0056b3;
   color: white;
   padding: 12px;
   text-align: left;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 td {
