@@ -2,10 +2,6 @@ import React, { useState } from "react";
 import "../styles/filterMenu.css";
 
 const FilterMenu = ({
-  selectedCountries,
-  setSelectedCountries,
-  selectedCurrencies,
-  setSelectedCurrencies,
   minPledged,
   setMinPledged,
   maxPledged,
@@ -14,7 +10,7 @@ const FilterMenu = ({
   setMinFunded,
   maxFunded,
   setMaxFunded,
-  projects,
+  selectedCurrency,
 }) => {
   return (
     <div className="filter-menu">
@@ -22,7 +18,7 @@ const FilterMenu = ({
 
       {/* Amount Pledged Filter */}
       <div className="filter-section">
-        <h4 className="filter-label">Amount Pledged</h4>
+        <h4 className="filter-label">Amount Pledged ({selectedCurrency})</h4>
 
         <div className="input-group">
           <input

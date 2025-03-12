@@ -46,10 +46,6 @@ const ContentWrapper = ({ projects }) => {
       />
       <div className="table-wrapper">
         <FilterMenu
-          selectedCurrencies={selectedCurrencies}
-          setSelectedCurrencies={setSelectedCurrencies}
-          selectedCountries={selectedCountries}
-          setSelectedCountries={setSelectedCountries}
           minPledged={minPledged}
           setMinPledged={setMinPledged}
           maxPledged={maxPledged}
@@ -58,8 +54,8 @@ const ContentWrapper = ({ projects }) => {
           setMinFunded={setMinFunded}
           maxFunded={maxFunded}
           setMaxFunded={setMaxFunded}
-          projects={projects}
           exchangeRates={exchangeRates}
+          selectedCurrency={selectedCurrency}
         />
         <div className="table-card-wrapper">
           <Table

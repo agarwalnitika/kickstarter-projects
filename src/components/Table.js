@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import "../styles/table.css";
-import { formatCurrency } from "../utils/currencyExchangeHelper";
 import Tooltip from "./Tooltip";
 import { tableHeaders } from "../constants/messages";
+import { exchangeRates } from "../constants/commonConstants";
 
 const Table = ({ projects, selectedCurrency }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortConfig, setSortConfig] = useState({ column: null, order: "asc" });
-
   const recordsPerPage = 5;
 
   // Sorting Logic
@@ -45,6 +44,18 @@ const Table = ({ projects, selectedCurrency }) => {
     return " ⬍";
   };
 
+  // Convert amount function with uppercase conversion and numeric conversion
+  const convertAmount = (amount, fromCurrency, toCurrency) => {
+    const from = fromCurrency.toUpperCase();
+    const to = toCurrency.toUpperCase();
+    if (from === to) return Math.round(Number(amount));
+    if (!exchangeRates[from] || !exchangeRates[to])
+      return Math.round(Number(amount));
+    return Math.round(
+      (Number(amount) / exchangeRates[from]) * exchangeRates[to]
+    );
+  };
+
   return (
     <div className="table-container">
       <table>
@@ -76,7 +87,7 @@ const Table = ({ projects, selectedCurrency }) => {
             <th>
               <div className="th-content">
                 <Tooltip text={tableHeaders.amountPledged.name}>
-                  {tableHeaders.amountPledged.name}
+                  {tableHeaders.amountPledged.name} ({selectedCurrency})
                 </Tooltip>
                 <button
                   onClick={() => handleSort("amt.pledged")}
@@ -89,15 +100,20 @@ const Table = ({ projects, selectedCurrency }) => {
           </tr>
         </thead>
         <tbody>
-          {currentRecords.map((project, index) => (
-            <tr key={index}>
-              <td>{project["s.no"]}</td>
-              <td>{project["percentage.funded"]}%</td>
-              <td>
-                {formatCurrency(project["amt.pledged"], project.currency)}
-              </td>
-            </tr>
-          ))}
+          {currentRecords.map((project, index) => {
+            const convertedAmount = convertAmount(
+              project["amt.pledged"],
+              project.currency,
+              selectedCurrency
+            );
+            return (
+              <tr key={index}>
+                <td>{project["s.no"]}</td>
+                <td>{project["percentage.funded"]}%</td>
+                <td>{convertedAmount}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
