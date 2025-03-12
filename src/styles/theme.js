@@ -1,10 +1,10 @@
 const theme = {
   colors: {
-    primary: "#6A5ACD",
+    primary: "#A4B0C8",
     primaryHover: "#5848c2",
     background: "#FBF9FF",
-    text: "#2E2E2E",
-    tableHeader: "#7E5CAD",
+    text: "#676B77",
+    tableHeader: "#A4B0C8",
     tableRowEven: "#F3ECFF",
     tableRowOdd: "#FFFFFF",
     buttonDisabled: "#B8B8B8",

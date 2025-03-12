@@ -1,33 +1,36 @@
 import React, { useEffect, useState } from "react";
-import Table from "./components/Table"; // Import Table
-
-const API_URL =
-  "https://raw.githubusercontent.com/saaslabsco/frontend-assignment/refs/heads/master/frontend-assignment.json";
+import ContentWrapper from "./components/ContentWrapper";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import Loader from "./components/Loader";
+import { API_URL } from "./constants/commonConstants";
 
 function App() {
-  const [projects, setProjects] = useState([]);
+  const [projectsData, setProjectsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    // fetch projects from API
     fetch(API_URL)
       .then((response) => response.json())
       .then((data) => {
-        console.log("Fetched Data:", data); // 🔍 Debugging step
-        setProjects(data);
-        setLoading(false);
+        setProjectsData(data);
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
       })
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
-  if (loading) return <h2>Loading...</h2>;
+  if (loading) return <Loader />;
   if (error) return <h2>Error: {error}</h2>;
 
   return (
-    <div className="">
-      <h1>Kickstarter Projects</h1>
-      <Table projects={projects} />
-      <div style={{ marginBottom: "60px" }}></div>
+    <div>
+      <Header />
+      <ContentWrapper projects={projectsData} />
+      <Footer />
     </div>
   );
 }

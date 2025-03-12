@@ -22,10 +22,11 @@ h1 {
 /* Table */
 table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
   table-layout: fixed;
   min-width: 100%;
-
+  border-spacing: 0;
+  border-radius: 10px;
   /* min-width: 100%; */
 }
 
@@ -58,32 +59,4 @@ tr:nth-child(even) {
 
 td {
   text-align: end;
-}
-/* Pagination */
-.pagination {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: var(--spacing-large);
-}
-
-.pagination-btn {
-  background-color: var(--primary);
-  color: white;
-  padding: var(--spacing-small) var(--spacing-medium);
-  border: none;
-  border-radius: 5px;
-  margin: 0 5px;
-  cursor: pointer;
-  font-family: var(--font-family);
-  transition: background 0.3s;
-}
-
-.pagination-btn:hover {
-  background-color: var(--primary-hover);
-}
-
-.pagination-btn:disabled {
-  background-color: var(--button-disabled);
-  cursor: not-allowed;
 }

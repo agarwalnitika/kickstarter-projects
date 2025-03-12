@@ -1,0 +1,74 @@
+.dual-range-slider {
+  width: 100%;
+  margin: 10px 0;
+}
+
+.slider-container {
+  position: relative;
+  width: 100%;
+  height: 40px; /* Enough height for the thumbs */
+}
+
+/* Both sliders share this class */
+.slider {
+  position: absolute;
+  pointer-events: none;
+  -webkit-appearance: none;
+  width: 100%;
+  height: 0;
+  margin: 0;
+}
+
+/* Lower slider thumb */
+.slider::-webkit-slider-thumb {
+  pointer-events: all;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+
+.slider::-moz-range-thumb {
+  pointer-events: all;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+
+/* Track for the slider */
+.slider-track {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 4px;
+  width: 100%;
+  background: #ccc;
+  border-radius: 2px;
+  z-index: 1;
+}
+
+/* The colored range between the two thumbs */
+.slider-range {
+  position: absolute;
+  height: 100%;
+  background: var(--primary);
+  border-radius: 2px;
+}
+
+.slider-values {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--text);
+}

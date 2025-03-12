@@ -1,39 +1,18 @@
 import React, { useState } from "react";
-import PaginationButton from "./PaginationButton";
-import "../styles/style.css";
-import { formatCurrency } from "../utils/formatCurrency";
+import "../styles/table.css";
+import { formatCurrency } from "../utils/currencyExchangeHelper";
 import Tooltip from "./Tooltip";
-import FilterMenu from "./FilterMenu";
+import { tableHeaders } from "../constants/messages";
 
-const Table = ({ projects }) => {
+const Table = ({ projects, selectedCurrency }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortConfig, setSortConfig] = useState({ column: null, order: "asc" });
-  const [selectedCurrencies, setSelectedCurrencies] = useState([]);
-  const [selectedCountries, setSelectedCountries] = useState([]);
-  const [minPledged, setMinPledged] = useState("");
-  const [maxPledged, setMaxPledged] = useState("");
-  const [minFunded, setMinFunded] = useState("");
-  const [maxFunded, setMaxFunded] = useState("");
+
   const recordsPerPage = 5;
-
-  // Filtering Logic
-  let filteredData = projects.filter((project) => {
-    const matchesCountry =
-      selectedCountries.length === 0 ||
-      selectedCountries.includes(project.country);
-    const matchesPledged =
-      (!minPledged || project["amt.pledged"] >= minPledged) &&
-      (!maxPledged || project["amt.pledged"] <= maxPledged);
-    const matchesFunded =
-      (!minFunded || project["percentage.funded"] >= minFunded) &&
-      (!maxFunded || project["percentage.funded"] <= maxFunded);
-
-    return matchesCountry && matchesPledged && matchesFunded;
-  });
 
   // Sorting Logic
   if (sortConfig.column) {
-    filteredData.sort((a, b) => {
+    projects.sort((a, b) => {
       if (a[sortConfig.column] < b[sortConfig.column]) {
         return sortConfig.order === "asc" ? -1 : 1;
       }
@@ -44,14 +23,9 @@ const Table = ({ projects }) => {
     });
   }
 
-  // Pagination Logic
-  const totalPages = Math.ceil(filteredData.length / recordsPerPage);
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  const currentRecords = filteredData.slice(
-    indexOfFirstRecord,
-    indexOfLastRecord
-  );
+  const currentRecords = projects.slice(indexOfFirstRecord, indexOfLastRecord);
 
   // Handle Sorting
   const handleSort = (column) => {
@@ -71,115 +45,61 @@ const Table = ({ projects }) => {
     return " ⬍";
   };
 
-  const exchangeRates = {
-    USD: 1,
-    CAD: 1.35,
-    EUR: 0.92,
-    GBP: 0.78,
-    AUD: 1.5,
-    CHF: 0.9,
-    DKK: 6.89,
-  };
-
   return (
-    <div className="wrapper">
-      <div className="table-wrapper">
-        {/* Sidebar Filters */}
-        <FilterMenu
-          selectedCurrencies={selectedCurrencies}
-          setSelectedCurrencies={setSelectedCurrencies}
-          selectedCountries={selectedCountries}
-          setSelectedCountries={setSelectedCountries}
-          minPledged={minPledged}
-          setMinPledged={setMinPledged}
-          maxPledged={maxPledged}
-          setMaxPledged={setMaxPledged}
-          minFunded={minFunded}
-          setMinFunded={setMinFunded}
-          maxFunded={maxFunded}
-          setMaxFunded={setMaxFunded}
-          projects={projects}
-          exchangeRates={exchangeRates}
-        />
-        <div className="table-wrapper-card">
-          <div className="table-container">
-            <table border={1} style={{ border: "1px solid #ddd" }}>
-              <thead>
-                <tr>
-                  <th>
-                    <div className="th-content">
-                      <Tooltip text="Serial Number">S.No</Tooltip>
-                      <button
-                        onClick={() => handleSort("s.no")}
-                        className="sort-btn"
-                      >
-                        {renderSortIndicator("s.no")}
-                      </button>
-                    </div>
-                  </th>
-                  <th>
-                    <div className="th-content">
-                      <Tooltip text="Percentage of funding received">
-                        Percentage Funded
-                      </Tooltip>
-                      <button
-                        onClick={() => handleSort("percentage.funded")}
-                        className="sort-btn"
-                      >
-                        {renderSortIndicator("percentage.funded")}
-                      </button>
-                    </div>
-                  </th>
-                  <th>
-                    <div className="th-content">
-                      <Tooltip text="Total amount pledged">
-                        Amount Pledged
-                      </Tooltip>
-                      <button
-                        onClick={() => handleSort("amt.pledged")}
-                        className="sort-btn"
-                      >
-                        {renderSortIndicator("amt.pledged")}
-                      </button>
-                    </div>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentRecords.map((project, index) => (
-                  <tr key={index}>
-                    <td>{project["s.no"]}</td>
-                    <td>{project["percentage.funded"]}%</td>
-                    <td>
-                      {formatCurrency(project["amt.pledged"], project.currency)}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          {/* Pagination stays fixed */}
-          <div className="pagination">
-            <PaginationButton
-              onClick={() => setCurrentPage(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              Previous
-            </PaginationButton>
-
-            <span>
-              Page {currentPage} of {totalPages}
-            </span>
-
-            <PaginationButton
-              onClick={() => setCurrentPage(currentPage + 1)}
-              disabled={currentPage === totalPages}
-            >
-              Next
-            </PaginationButton>
-          </div>
-        </div>
-      </div>
+    <div className="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>
+              <div className="th-content">
+                <Tooltip text={tableHeaders.sNo.description}>
+                  {tableHeaders.sNo.name}
+                </Tooltip>
+                <button onClick={() => handleSort("s.no")} className="sort-btn">
+                  {renderSortIndicator("s.no")}
+                </button>
+              </div>
+            </th>
+            <th>
+              <div className="th-content">
+                <Tooltip text={tableHeaders.percentageFunded.description}>
+                  {tableHeaders.percentageFunded.name}
+                </Tooltip>
+                <button
+                  onClick={() => handleSort("percentage.funded")}
+                  className="sort-btn"
+                >
+                  {renderSortIndicator("percentage.funded")}
+                </button>
+              </div>
+            </th>
+            <th>
+              <div className="th-content">
+                <Tooltip text={tableHeaders.amountPledged.name}>
+                  {tableHeaders.amountPledged.name}
+                </Tooltip>
+                <button
+                  onClick={() => handleSort("amt.pledged")}
+                  className="sort-btn"
+                >
+                  {renderSortIndicator("amt.pledged")}
+                </button>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {currentRecords.map((project, index) => (
+            <tr key={index}>
+              <td>{project["s.no"]}</td>
+              <td>{project["percentage.funded"]}%</td>
+              <td>
+                {formatCurrency(project["amt.pledged"], project.currency)}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

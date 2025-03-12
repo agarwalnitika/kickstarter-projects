@@ -17,18 +17,3 @@ th {
 tr:nth-child(even) {
   background-color: var(--table-row-even);
 }
-
-/* Buttons */
-.pagination-btn {
-  background-color: var(--primary);
-  padding: var(--spacing-medium);
-  font-family: var(--font-family);
-}
-
-.pagination-btn:hover {
-  background-color: var(--primary-hover);
-}
-
-.pagination-btn:disabled {
-  background-color: var(--button-disabled);
-}
