@@ -12,7 +12,6 @@ body {
 .content-wrapper {
   margin: 40px;
   padding: 20px;
-  background-color: var(--background);
   max-width: 1300px;
   display: flex;
   flex-direction: column;
@@ -85,4 +84,11 @@ tr {
   tbody {
     min-height: 190px;
   }
+}
+
+.outer-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

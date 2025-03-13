@@ -40,36 +40,38 @@ const ContentWrapper = ({ projects }) => {
   }, [filteredProjectsData, totalPages]);
 
   return (
-    <div className="content-wrapper">
-      <CurrencyDropdown
-        selectedCurrency={selectedCurrency}
-        setSelectedCurrency={setSelectedCurrency}
-      />
-      <div className="table-wrapper">
-        <FilterMenu
-          minPledged={minPledged}
-          setMinPledged={setMinPledged}
-          maxPledged={maxPledged}
-          setMaxPledged={setMaxPledged}
-          minFunded={minFunded}
-          setMinFunded={setMinFunded}
-          maxFunded={maxFunded}
-          setMaxFunded={setMaxFunded}
-          exchangeRates={exchangeRates}
+    <div className="outer-wrapper">
+      <div className="content-wrapper">
+        <CurrencyDropdown
           selectedCurrency={selectedCurrency}
+          setSelectedCurrency={setSelectedCurrency}
         />
-        <div className="table-card-wrapper">
-          <div className="inner-wrapper">
-            <Table
-              projects={filteredProjectsData}
-              selectedCurrency={selectedCurrency}
-              currentPage={currentPage}
-            />
-            <PaginationComponent
-              currentPage={currentPage}
-              totalPages={totalPages}
-              setCurrentPage={setCurrentPage}
-            />
+        <div className="table-wrapper">
+          <FilterMenu
+            minPledged={minPledged}
+            setMinPledged={setMinPledged}
+            maxPledged={maxPledged}
+            setMaxPledged={setMaxPledged}
+            minFunded={minFunded}
+            setMinFunded={setMinFunded}
+            maxFunded={maxFunded}
+            setMaxFunded={setMaxFunded}
+            exchangeRates={exchangeRates}
+            selectedCurrency={selectedCurrency}
+          />
+          <div className="table-card-wrapper">
+            <div className="inner-wrapper">
+              <Table
+                projects={filteredProjectsData}
+                selectedCurrency={selectedCurrency}
+                currentPage={currentPage}
+              />
+              <PaginationComponent
+                currentPage={currentPage}
+                totalPages={totalPages}
+                setCurrentPage={setCurrentPage}
+              />
+            </div>
           </div>
         </div>
       </div>
