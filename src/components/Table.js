@@ -5,8 +5,7 @@ import { tableHeaders } from "../constants/messages";
 import { exchangeRates } from "../constants/commonConstants";
 import InfoIcon from "./infoIcon";
 
-const Table = ({ projects, selectedCurrency }) => {
-  const [currentPage, setCurrentPage] = useState(1);
+const Table = ({ projects, selectedCurrency, currentPage }) => {
   const [sortConfig, setSortConfig] = useState({ column: null, order: "asc" });
   const recordsPerPage = 5;
 

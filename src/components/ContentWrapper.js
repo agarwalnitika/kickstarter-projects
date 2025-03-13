@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   exchangeRates,
   MAX_RECORDS_PER_PAGE,
@@ -12,8 +12,6 @@ import CurrencyDropdown from "./CurrencyDropdown";
 
 const ContentWrapper = ({ projects }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedCurrencies, setSelectedCurrencies] = useState([]);
-  const [selectedCountries, setSelectedCountries] = useState([]);
   const [minPledged, setMinPledged] = useState("");
   const [maxPledged, setMaxPledged] = useState("");
   const [minFunded, setMinFunded] = useState("");
@@ -23,9 +21,6 @@ const ContentWrapper = ({ projects }) => {
 
   // Filtering Logic
   let filteredProjectsData = projects.filter((project) => {
-    const matchesCountry =
-      selectedCountries.length === 0 ||
-      selectedCountries.includes(project.country);
     const matchesPledged =
       (!minPledged || project["amt.pledged"] >= minPledged) &&
       (!maxPledged || project["amt.pledged"] <= maxPledged);
@@ -33,10 +28,16 @@ const ContentWrapper = ({ projects }) => {
       (!minFunded || project["percentage.funded"] >= minFunded) &&
       (!maxFunded || project["percentage.funded"] <= maxFunded);
 
-    return matchesCountry && matchesPledged && matchesFunded;
+    return matchesPledged && matchesFunded;
   });
 
   const totalPages = Math.ceil(filteredProjectsData.length / recordsPerPage);
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(1);
+    }
+  }, [filteredProjectsData, totalPages]);
 
   return (
     <div className="content-wrapper">
@@ -62,6 +63,7 @@ const ContentWrapper = ({ projects }) => {
             <Table
               projects={filteredProjectsData}
               selectedCurrency={selectedCurrency}
+              currentPage={currentPage}
             />
             <PaginationComponent
               currentPage={currentPage}
