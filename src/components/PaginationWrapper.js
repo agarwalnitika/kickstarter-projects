@@ -1,6 +1,7 @@
 import React from "react";
 import PaginationButton from "./PaginationButton";
 import { MAX_RECORDS_PER_PAGE } from "../constants/commonConstants";
+import "../styles/table.css";
 
 const PaginationComponent = ({ currentPage, setCurrentPage, totalPages }) => {
   return (

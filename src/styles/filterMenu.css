@@ -114,4 +114,7 @@
   .input-box {
     width: 40px;
   }
+  .filter-menu {
+    max-width: 280px;
+  }
 }
