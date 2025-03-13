@@ -14,7 +14,7 @@ const FilterMenu = ({
 }) => {
   return (
     <div className="filter-menu">
-      <h3 className="filter-title">Filters</h3>
+      <span className="filter-title">Filters</span>
 
       {/* Amount Pledged Filter */}
       <div className="filter-section">

@@ -3,6 +3,7 @@ import "../styles/table.css";
 import Tooltip from "./Tooltip";
 import { tableHeaders } from "../constants/messages";
 import { exchangeRates } from "../constants/commonConstants";
+import InfoIcon from "./infoIcon";
 
 const Table = ({ projects, selectedCurrency }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -63,9 +64,12 @@ const Table = ({ projects, selectedCurrency }) => {
           <tr>
             <th>
               <div className="th-content">
-                <Tooltip text={tableHeaders.sNo.description}>
+                <div className="th-title">
                   {tableHeaders.sNo.name}
-                </Tooltip>
+                  <Tooltip text={tableHeaders.sNo.description}>
+                    <InfoIcon />
+                  </Tooltip>
+                </div>
                 <button onClick={() => handleSort("s.no")} className="sort-btn">
                   {renderSortIndicator("s.no")}
                 </button>
@@ -73,9 +77,12 @@ const Table = ({ projects, selectedCurrency }) => {
             </th>
             <th>
               <div className="th-content">
-                <Tooltip text={tableHeaders.percentageFunded.description}>
+                <div className="th-title">
                   {tableHeaders.percentageFunded.name}
-                </Tooltip>
+                  <Tooltip text={tableHeaders.percentageFunded.description}>
+                    <InfoIcon />
+                  </Tooltip>
+                </div>
                 <button
                   onClick={() => handleSort("percentage.funded")}
                   className="sort-btn"
@@ -86,9 +93,12 @@ const Table = ({ projects, selectedCurrency }) => {
             </th>
             <th>
               <div className="th-content">
-                <Tooltip text={tableHeaders.amountPledged.name}>
+                <div className="th-title">
                   {tableHeaders.amountPledged.name} ({selectedCurrency})
-                </Tooltip>
+                  <Tooltip text={tableHeaders.amountPledged.name}>
+                    <InfoIcon />
+                  </Tooltip>
+                </div>
                 <button
                   onClick={() => handleSort("amt.pledged")}
                   className="sort-btn"
