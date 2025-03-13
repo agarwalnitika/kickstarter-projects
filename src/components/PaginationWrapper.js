@@ -2,13 +2,7 @@ import React from "react";
 import PaginationButton from "./PaginationButton";
 import { MAX_RECORDS_PER_PAGE } from "../constants/commonConstants";
 
-const PaginationComponent = ({
-  serialNumber,
-  totalRecords,
-  currentPage,
-  setCurrentPage,
-  totalPages,
-}) => {
+const PaginationComponent = ({ currentPage, setCurrentPage, totalPages }) => {
   return (
     <div className="pagination">
       <div style={{ display: "flex" }}>

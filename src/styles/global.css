@@ -27,11 +27,10 @@ table {
   min-width: 100%;
   border-spacing: 0;
   border-radius: 10px;
-  /* min-width: 100%; */
 }
 
 th button {
-  margin-left: 8px; /* Add spacing between text and sort button */
+  margin-left: 8px;
 }
 
 th {
@@ -39,11 +38,11 @@ th {
   color: white;
   padding: var(--spacing-medium);
   text-align: left;
-  /* display: flex; */
   justify-content: space-between;
   align-items: center;
-  white-space: nowrap; /* Prevent text from wrapping */
-  min-width: 150px; /* Adjust based on your needs */
+  white-space: nowrap;
+  min-width: 150px;
+  padding-right: 30px;
 }
 
 .th-content {
@@ -59,4 +58,5 @@ tr:nth-child(even) {
 
 td {
   text-align: end;
+  padding-right: 30px;
 }

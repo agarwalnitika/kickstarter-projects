@@ -6,12 +6,12 @@ const CurrencyDropdown = ({ selectedCurrency, setSelectedCurrency }) => {
 
   return (
     <div className="currency-dropdown">
-      <div className="currency-dropdown-button ">
+      <div className="currency-dropdown-button">
         <select
           id="currencySelect"
           value={selectedCurrency}
           onChange={(e) => setSelectedCurrency(e.target.value)}
-          className="dropdown-select"
+          className="dropdown-select custom-select"
         >
           {availableCurrencies.map((currency) => (
             <option key={currency} value={currency}>

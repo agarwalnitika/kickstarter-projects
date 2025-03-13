@@ -58,17 +58,17 @@ const ContentWrapper = ({ projects }) => {
           selectedCurrency={selectedCurrency}
         />
         <div className="table-card-wrapper">
-          <Table
-            projects={filteredProjectsData}
-            selectedCurrency={selectedCurrency}
-          />
-          <PaginationComponent
-            serialNumber={filteredProjectsData[0]["s.no"]}
-            totalRecords={filteredProjectsData.length}
-            currentPage={currentPage}
-            totalPages={totalPages}
-            setCurrentPage={setCurrentPage}
-          />
+          <div className="inner-wrapper">
+            <Table
+              projects={filteredProjectsData}
+              selectedCurrency={selectedCurrency}
+            />
+            <PaginationComponent
+              currentPage={currentPage}
+              totalPages={totalPages}
+              setCurrentPage={setCurrentPage}
+            />
+          </div>
         </div>
       </div>
     </div>
