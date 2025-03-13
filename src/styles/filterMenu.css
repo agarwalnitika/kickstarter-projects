@@ -85,6 +85,7 @@
   font-size: 14px;
   outline: none;
   transition: 0.3s;
+  width: 150px;
 }
 
 .input-box:focus {
