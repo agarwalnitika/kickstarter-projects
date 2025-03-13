@@ -1,5 +1,5 @@
 .filter-menu {
-  max-width: 400px;
+  max-width: 350px;
   background: white;
   padding: 20px;
   border-radius: 10px;
@@ -108,4 +108,10 @@
 .currency-select:focus {
   border-color: #007bff;
   box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.3);
+}
+
+@media (max-width: 480px) {
+  .input-box {
+    width: 40px;
+  }
 }

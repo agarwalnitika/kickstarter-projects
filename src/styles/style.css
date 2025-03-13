@@ -19,9 +19,8 @@ body {
   justify-content: center;
 }
 
-/* Fix for Last Page Shift */
 tbody {
-  min-height: 200px; /* Ensures table doesn't collapse */
+  min-height: 200px;
   display: block;
 }
 
@@ -38,7 +37,6 @@ tr {
   align-items: flex-end;
   gap: 10px;
   min-height: 50px;
-  width: 650px;
 }
 
 /* Pagination Buttons */
@@ -80,5 +78,16 @@ tr {
   .pagination-btn {
     font-size: 14px;
     padding: 8px 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .content-wrapper {
+    margin: 10px;
+    padding: 8px;
+  }
+
+  tbody {
+    min-height: 100px;
   }
 }
