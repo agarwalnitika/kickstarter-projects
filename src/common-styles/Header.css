@@ -1,0 +1,5 @@
+.header-wrapper {
+  display: flex;
+  border: 1px solid #000;
+  width: 100%;
+}

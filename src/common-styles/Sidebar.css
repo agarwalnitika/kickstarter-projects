@@ -1,0 +1,6 @@
+.sidebar-wrapper {
+  width: 300px;
+  display: flex;
+  border: 1px solid #000;
+  height: 100%;
+}

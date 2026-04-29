@@ -8,7 +8,7 @@ body {
   height: 100vh;
   flex-direction: column;
 }
-
+/* 
 .content-wrapper {
   margin: 40px;
   padding: 20px;
@@ -16,7 +16,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
+} */
 
 tbody {
   min-height: 232px;
